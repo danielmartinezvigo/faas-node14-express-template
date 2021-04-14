@@ -1,0 +1,22 @@
+{
+  "name": "openfaas-node12",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no tests specified\" && exit 0",
+    "lint": "eslint '**/*.js' --quiet"
+  },
+  "keywords": [],
+  "author": "OpenFaaS Ltd",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  }
+}
