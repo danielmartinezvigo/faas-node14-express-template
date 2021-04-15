@@ -12,12 +12,12 @@ class Routing {
   //   this.app.disable('x-powered-by');
   // }
 
-  bind(route) {
-    this.app.post('/*', route);
-    this.app.get('/*', route);
-    this.app.patch('/*', route);
-    this.app.put('/*', route);
-    this.app.delete('/*', route);
+  bind() {
+    this.app.post('/*', (req, res) => Routing.handle(req, res));
+    this.app.get('/*', (req, res) => Routing.handle(req, res));
+    this.app.patch('/*', (req, res) => Routing.handle(req, res));
+    this.app.put('/*', (req, res) => Routing.handle(req, res));
+    this.app.delete('/*', (req, res) => Routing.handle(req, res));
   }
 
   static async handle(req, res) {
