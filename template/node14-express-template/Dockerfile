@@ -28,6 +28,9 @@ RUN npm i
 
 # Copy outer function handler
 COPY index.js ./
+COPY sentry.js ./
+COPY utils.js ./
+COPY winston/ ./winston
 
 # COPY function node packages and install, adding this as a separate
 # entry allows caching of npm install
