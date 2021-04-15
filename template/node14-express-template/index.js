@@ -13,12 +13,14 @@ const handler = require('./function/handler');
 
 const logger = require('./winston/logger');
 const sentry = require('./sentry');
+const utils = require('./utils');
 
 global.DEBUG_LEVEL = /^\d+$/.test(process.env.DEBUG_LEVEL) ? parseInt(process.env.DEBUG_LEVEL, 10) : 1;
 // eslint-disable-next-line no-console
 console.log('debug level', global.DEBUG_LEVEL);
 logger.init();
 sentry.init();
+utils.init();
 
 const defaultMaxSize = '100kb'; // body-parser default
 
@@ -167,7 +169,10 @@ app.use(morgan((tokens, req, res) => [
 const port = process.env.http_port || 3000;
 
 app.listen(port, () => {
-  global.logger.info({ message: `Listening on port: ${port}`, label: 'app' });
+  global.logger.info({
+    message: `Listening on port: ${port}`,
+    label: global.getLabel(__dirname, __filename),
+  });
 });
 
 const init = async () => handler({ app });
