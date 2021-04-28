@@ -60,7 +60,7 @@ function get(key) {
       try {
         return resolve(JSON.parse(reply));
       } catch (ex) {
-        return reject(ex);
+        return resolve(ex);
       }
     });
   });
@@ -80,7 +80,7 @@ function set(key, value) {
       try {
         return resolve(JSON.parse(reply));
       } catch (ex) {
-        return reject(ex);
+        return resolve(ex);
       }
     });
   });
@@ -100,7 +100,7 @@ function set_with_ttl(key, value, ttl) {
       try {
         return resolve(JSON.parse(reply));
       } catch (ex) {
-        return reject(reply);
+        return resolve(reply);
       }
     });
   });
