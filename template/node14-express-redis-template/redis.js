@@ -19,12 +19,12 @@ if (process.env.REDIS_CERTIFICATE_BASE64) {
   client = redis.createClient(process.env.REDIS_URI, { tls });
 
   client.on('connect', async () => {
-    global.logger.info({ message: 'client connected', label: 'redis' });
+    global.logger.info({ message: 'client connected', label: global.getLabel(__dirname, __filename) });
     _client_ok = true;
   });
 
   client.on('error', async (err) => {
-    global.logger.error({ message: `client error ${err}`, label: 'redis' });
+    global.logger.error({ message: `client error ${err}`, label: global.getLabel(__dirname, __filename) });
     global.Raven.captureException(err);
     _client_ok = false;
     await sleep(1000);
@@ -37,12 +37,12 @@ if (process.env.REDIS_CERTIFICATE_BASE64) {
   client = redis.createClient(options);
 
   client.on('connect', async () => {
-    global.logger.info({ message: 'client connected', label: 'redis' });
+    global.logger.info({ message: 'client connected', label: global.getLabel(__dirname, __filename) });
     _client_ok = true;
   });
 
   client.on('error', async (err) => {
-    global.logger.error({ message: `client error ${err}`, label: 'redis' });
+    global.logger.error({ message: `client error ${err}`, label: global.getLabel(__dirname, __filename) });
     global.Raven.captureException(err);
     _client_ok = false;
     await sleep(1000);
@@ -54,7 +54,7 @@ function get(key) {
   return new Promise((resolve, reject) => {
     client.get(key, (err, reply) => {
       if (err) {
-        global.logger.error({ message: `get error ${err}`, label: 'redis' });
+        global.logger.error({ message: `get error ${err}`, label: global.getLabel(__dirname, __filename) });
         return reject(err);
       }
       try {
@@ -74,7 +74,7 @@ function set(key, value) {
     }
     client.set(key, v, (err, reply) => {
       if (err) {
-        global.logger.error({ message: `set error ${err}`, label: 'redis' });
+        global.logger.error({ message: `set error ${err}`, label: global.getLabel(__dirname, __filename) });
         return reject(err);
       }
       try {
@@ -94,7 +94,7 @@ function set_with_ttl(key, value, ttl) {
     }
     client.set(key, v, 'EX', ttl, (err, reply) => {
       if (err) {
-        global.logger.error({ message: `set error ${err}`, label: 'redis' });
+        global.logger.error({ message: `set error ${err}`, label: global.getLabel(__dirname, __filename) });
         return reject(err);
       }
       try {
@@ -107,7 +107,7 @@ function set_with_ttl(key, value, ttl) {
 }
 
 client.on('error', (err) => {
-  global.logger.error({ message: `client error ${err}`, label: 'redis' });
+  global.logger.error({ message: `client error ${err}`, label: global.getLabel(__dirname, __filename) });
 });
 
 module.exports = {
